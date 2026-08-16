@@ -20,15 +20,11 @@ learning_rate = 0.01
 iterations = 10000
 
 # math formulat
+# gradient descent: theta = theta - learning_rate * ∂J/∂theta
+# cost function: J = 1/2m * ​∑(estimated_price[i] − price[i])^2
 # estimated_price = theta1 * mileage + theta0
-# J = 1/2m * ​∑(estimated_price[i] − price[i])^2
-# theta = theta - learning_rate * ∂J/∂theta
 # ∂J/∂theta0 = 1/m * ∑(estimated_price[i] − price[i])
 # ∂J/∂theta1 = 1/m * ∑mileage * (estimated_price[i] − price[i])
-# tmp_theta1 = learning_rate * ∂J/∂theta1
-# tmp_theta0 = learning_rate * ∂J/∂theta0
-# theta1 = theta1 - tmp_theta1
-# theta0 = theta0 - tmp_theta0
 
 def gradient_descent(mileage, price, theta0, theta1, learning_rate, iterations):
 
@@ -38,12 +34,9 @@ def gradient_descent(mileage, price, theta0, theta1, learning_rate, iterations):
 
         error = estimated_price - price
 
-        tmp_theta0 = learning_rate * (1 / m) * sum(error)
+        theta0 = theta0 - learning_rate * (1 / m) * sum(error)
 
-        tmp_theta1 = learning_rate * (1 / m) * sum(error * mileage)
-
-        theta0 = theta0 - tmp_theta0
-        theta1 = theta1 - tmp_theta1
+        theta1 = theta1 - learning_rate * (1 / m) * sum(error * mileage)
 
     return theta0, theta1
 
